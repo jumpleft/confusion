@@ -11,26 +11,31 @@ class Dishdetails extends Component {
     }
 
     renderComments(deets) {
-      if (deets != null){
-         return(
-             <div className="col-12 col-md-5 m-1">
-                <div>
-                  <h1>"Comments"</h1>
-                </div>
-                <div key={deets.id}>
-                  <ul className = "list-unstyled">
-                    <p>{deets.comment}</p>
-                    <p>{deets.author}" , "{deets.date}</p>
-                  </ul>
-                </div>
+        if (deets != null){
+          console.log(deets)
+          const commentsAndAuthorAndDate = deets.map((value) => {
+              return(
+                <li key={value.id}>
+                  <p>{value.comment}</p>
+                  <p>{value.author} , {value.date}</p>
+              </li>
+              );
+          });
 
-            </div>
-        );
-      }else {
-        return(<div></div>);
+           return(
+               <div className="col-12 col-md-5 m-1">
+                  <div>
+                    <h1>Comments</h1>
+                    <ul className = "list-unstyled">
+                      {commentsAndAuthorAndDate}
+                    </ul>
+                  </div>
+              </div>
+            );
+        }else {
+          return(<div></div>);
+        }
       }
-    }
-
 
 
 
@@ -57,8 +62,6 @@ class Dishdetails extends Component {
         <div className="container">
           <div className="row">
               {dishdetails}
-          </div>
-          <div>
               {this.renderComments(this.props.selectedDish.comments)}
           </div>
 
