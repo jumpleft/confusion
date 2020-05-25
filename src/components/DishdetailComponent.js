@@ -9,7 +9,7 @@ import { Card, CardImg, CardText, CardBody, CardTitle } from 'reactstrap';
           <CardBody>
               <CardTitle>{dish.name}</CardTitle>
               <CardText>{dish.description}</CardText>
-            </CardBody>
+          </CardBody>
         </Card>
         </div>
       )
