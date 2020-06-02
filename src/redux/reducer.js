@@ -7,7 +7,8 @@ export const InitialState = {
   dishes: DISHES,
   comments: COMMENTS,
   promotions: PROMOTIONS,
-  leaders: LEADERS
+  leaders: LEADERS,
+  isCommentFormModleopen: false
 
 };
 
