@@ -6,16 +6,14 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
 const minLength = (len) => (val) => val && (val.length >= len);
-const MapStateToProps = state => {
-    return {
-      modelmodel: state.modelmodel
-    }
-}
+
 
 class CommentForm extends Component {
   constructor(props){
     super(props);
+
     this.state = {
+      isNavOpen: false,
       isOpen: false
     };
 
@@ -24,8 +22,7 @@ class CommentForm extends Component {
   }
 
   handleSubmit(values) {
-        console.log('Current State is: ' + JSON.stringify(values));
-        alert('Current State is: ' + JSON.stringify(values));
+        this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
   }
 
   toggleModal(onClick) {
@@ -39,7 +36,7 @@ class CommentForm extends Component {
     <>
     <div>
       <Button outline onClick={this.toggleModal}><span className="fa fa-pencil fa-lg"></span> Submit Comment</Button>
-    </div>
+
     <Modal isOpen={this.state.isOpen} toggle={this.toggleModal}>
       <ModalHeader toggle={this.toggleModal}>Submit Comment</ModalHeader>
       <ModalBody>
@@ -94,6 +91,7 @@ class CommentForm extends Component {
         </LocalForm>
       </ModalBody>
     </Modal>
+    </div>
 </>
 
 
@@ -122,7 +120,7 @@ class CommentForm extends Component {
     }
 
 
-    function RenderComments({deets}) {
+    function RenderComments({deets, addComment, dishId}) {
         if (deets != null){
           console.log(deets)
           const commentsAndAuthorAndDate = deets.map((value) => {
@@ -140,7 +138,7 @@ class CommentForm extends Component {
                   <ul className = "list-unstyled">
                     {commentsAndAuthorAndDate}
                   </ul>
-                  <CommentForm />
+                  <CommentForm dishId={dishId} addComment={addComment} />
                 </div>
 
             );
@@ -171,7 +169,10 @@ class CommentForm extends Component {
                 </div>
             <div className="row">
                 <RenderDish dish={props.disher}  />
-                <RenderComments deets={props.comments} />
+                <RenderComments deets={props.comments}
+                  addComment={props.addComment}
+                  dishId={props.disher.id}
+                />
             </div>
           </div>
         )
