@@ -1,14 +1,15 @@
-import { DISHES } from '../shared/dishes';
-import { COMMENTS } from '../shared/comments';
-import { PROMOTIONS } from '../shared/promotions';
-import { LEADERS } from '../shared/leaders';
+import {createStore, combineReducers} from 'redux';
+import { Dishes } from './dishes';
+import { Comments } from './comments';
+import { Promotions } from './promotions';
+import { Leaders } from './leaders';
+
 
 export const InitialState = {
   dishes: DISHES,
   comments: COMMENTS,
   promotions: PROMOTIONS,
   leaders: LEADERS,
-  isCommentFormModleopen: false
 
 };
 
