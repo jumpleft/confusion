@@ -1,16 +1,23 @@
 import React, { Component } from 'react';
-import { Card, CardImg, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem, Button, Modal, ModalHeader, ModalBody, Col, Row, Input, Label } from 'reactstrap';
+import { Card, CardImg, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem, Button, Modal, ModalHeader, ModalBody, Col, Row, Input, Label, FormGroup, Form } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Control, LocalForm, Errors } from 'react-redux-form';
 
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
 const minLength = (len) => (val) => val && (val.length >= len);
-
+const MapStateToProps = state => {
+    return {
+      modelmodel: state.modelmodel
+    }
+}
 
 class CommentForm extends Component {
   constructor(props){
     super(props);
+    this.state = {
+      isOpen: false
+    };
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.toggleModal = this.toggleModal.bind(this);
@@ -22,13 +29,18 @@ class CommentForm extends Component {
   }
 
   toggleModal(onClick) {
-    this.setState({ CommentFormModleopen: !this.props.isCommentFormModleopen});
+    this.setState({ isOpen: !this.state.isOpen});
 
   }
 
   render() {
     return(
-    <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
+
+    <>
+    <div>
+      <Button outline onClick={this.toggleModal}><span className="fa fa-pencil fa-lg"></span> Submit Comment</Button>
+    </div>
+    <Modal isOpen={this.state.isOpen} toggle={this.toggleModal}>
       <ModalHeader toggle={this.toggleModal}>Submit Comment</ModalHeader>
       <ModalBody>
         <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
@@ -69,19 +81,20 @@ class CommentForm extends Component {
             </Col>
           </Row>
           <Row className="form-group">
-          <Label htmlFor="comment" md={2}>Comment</Label>
-            <Col md={10}>
-              <Control.text rows="6" model=".comment" id="comment" name="comment"
-                  placeholder="Comment"
-                  className="form-control"
-                  />
-            </Col>
+              <Label htmlFor="comment" md={2}>Your comments</Label>
+              <Col md={10}>
+                  <Control.textarea model=".comment" id="comment" name="comment"
+                      rows="6"
+                      className="form-control" />
+              </Col>
           </Row>
+          <Row className="form-group">
             <Button type="submit" value="submit" color="primary">Login</Button>
+          </Row>
         </LocalForm>
       </ModalBody>
     </Modal>
-
+</>
 
 
 
@@ -127,8 +140,7 @@ class CommentForm extends Component {
                   <ul className = "list-unstyled">
                     {commentsAndAuthorAndDate}
                   </ul>
-                  <Button outline onClick={(onClick) => CommentForm.toggleModal(onClick)}><span className="fa fa-pencil fa-lg"></span>Submit Comment</Button>
-
+                  <CommentForm />
                 </div>
 
             );
