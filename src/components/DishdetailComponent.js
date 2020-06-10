@@ -40,12 +40,12 @@ class CommentForm extends Component {
     <Modal isOpen={this.state.isOpen} toggle={this.toggleModal}>
       <ModalHeader toggle={this.toggleModal}>Submit Comment</ModalHeader>
       <ModalBody>
-        <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
+      <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
           <Row className="form-group">
-            <Label htmlFor="rating">Rating</Label>
+            <Label htmlFor="rating" md={2}>Rating</Label>
             <Col md={10}>
-                <Control.select name="rating" id="rating"
-                  placeholder="Name"
+                <Control.select model=".rating" name="rating" id="rating"
+                  placeholder="rating"
                   className="form-control">
                   <option>1</option>
                   <option>2</option>
@@ -55,30 +55,31 @@ class CommentForm extends Component {
                 </Control.select>
             </Col>
           </Row>
+
+        <Row className="form-group">
+          <Label htmlFor="author" md={2}>Your Name</Label>
+          <Col md={10}>
+              <Control.text model=".author" id="author" name="author"
+                  placeholder="Your Name"
+                  className="form-control"
+                  validators={{
+                      required, minLength: minLength(3), maxLength: maxLength(15)
+                  }}
+                   />
+              <Errors
+                  className="text-danger"
+                  model=".author"
+                  show="touched"
+                  messages={{
+                      required: 'Required',
+                      minLength: 'Must be greater than 2 characters',
+                      maxLength: 'Must be 15 characters or less'
+                  }}
+               />
+          </Col>
+        </Row>
           <Row className="form-group">
-            <Label htmlFor="name" md={2}>Your Name</Label>
-            <Col md={10}>
-                <Control.text model=".name" id="name" name="name"
-                    placeholder="Name"
-                    className="form-control"
-                    validators={{
-                        required, minLength: minLength(3), maxLength: maxLength(15)
-                    }}
-                     />
-                <Errors
-                    className="text-danger"
-                    model=".firstname"
-                    show="touched"
-                    messages={{
-                        required: 'Required',
-                        minLength: 'Must be greater than 2 characters',
-                        maxLength: 'Must be 15 characters or less'
-                    }}
-                 />
-            </Col>
-          </Row>
-          <Row className="form-group">
-              <Label htmlFor="comment" md={2}>Your comments</Label>
+              <Label htmlFor="comment" md={2}>Comment</Label>
               <Col md={10}>
                   <Control.textarea model=".comment" id="comment" name="comment"
                       rows="6"
@@ -86,9 +87,13 @@ class CommentForm extends Component {
               </Col>
           </Row>
           <Row className="form-group">
-            <Button type="submit" value="submit" color="primary">Login</Button>
+              <Col md={{size:10, offset: 2}}>
+                  <Button type="submit" color="primary">
+                  Submit
+                  </Button>
+              </Col>
           </Row>
-        </LocalForm>
+      </LocalForm>
       </ModalBody>
     </Modal>
     </div>
