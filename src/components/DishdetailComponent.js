@@ -25,7 +25,7 @@ class CommentForm extends Component {
   }
 
   handleSubmit(values) {
-        this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
+        this.props.postComment(this.props.dishId, values.rating, values.author, values.comment);
   }
 
   toggleModal(onClick) {
@@ -128,7 +128,7 @@ class CommentForm extends Component {
     }
 
 
-    function RenderComments({deets, addComment, dishId}) {
+    function RenderComments({deets, postComment, dishId}) {
         if (deets != null){
           console.log(deets)
           const commentsAndAuthorAndDate = deets.map((value) => {
@@ -146,7 +146,7 @@ class CommentForm extends Component {
                   <ul className = "list-unstyled">
                     {commentsAndAuthorAndDate}
                   </ul>
-                  <CommentForm dishId={dishId} addComment={addComment} />
+                  <CommentForm dishId={dishId} postComment={postComment} />
                 </div>
 
             );
@@ -195,7 +195,7 @@ class CommentForm extends Component {
             <div className="row">
                 <RenderDish dish={props.disher}  />
                 <RenderComments deets={props.comments}
-                  addComment={props.addComment}
+                  postComment={props.postComment}
                   dishId={props.disher.id}
                 />
             </div>
